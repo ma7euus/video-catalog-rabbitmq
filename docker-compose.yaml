@@ -1,0 +1,21 @@
+version: "3.5"
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3.8-management-alpine"
+    container_name: video-catalog-rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - "./.docker/rabbitmq_data:/var/lib/rabbitmq/mnesia"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    networks:
+      - network_video-catalog-rabbitmq
+networks:
+  network_video-catalog-rabbitmq:
+    name: network_video-catalog-rabbitmq
+    driver: bridge
